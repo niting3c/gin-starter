@@ -1,0 +1,113 @@
+basePath: /
+definitions:
+  models.UserResponseDto:
+    properties:
+      adminRole:
+        type: boolean
+      canViewLogsRole:
+        type: boolean
+      testerRole:
+        type: boolean
+      userDisplayName:
+        type: string
+      userEmailId:
+        type: string
+      userFirstName:
+        type: string
+      userId:
+        type: integer
+      userLastName:
+        type: string
+      userRole:
+        type: string
+      viewerRole:
+        type: boolean
+    type: object
+  utils.ErrorMessage:
+    properties:
+      error:
+        type: string
+      statusCode:
+        type: integer
+    type: object
+externalDocs:
+  description: OpenAPI
+host: localhost:4000
+info:
+  contact:
+    email: nitin1494gupta@gmail.com
+    name: Nitin Gupta
+  description: Swagger APIS for a starter Application
+  title: Golang Starter Application
+  version: "1.0"
+paths:
+  /health:
+    get:
+      description: Checks the health of the service
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ErrorMessage'
+      summary: Health Check
+      tags:
+      - Internal
+  /log/{level}:
+    put:
+      description: Set Log Level
+      parameters:
+      - description: Log Level
+        in: path
+        name: level
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ErrorMessage'
+      summary: Set Log Level
+      tags:
+      - Internal
+  /user/{email}:
+    get:
+      description: Gets the user details by Email
+      parameters:
+      - description: User email
+        in: path
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserResponseDto'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ErrorMessage'
+      summary: Gets the user details by Email
+      tags:
+      - User
+swagger: "2.0"

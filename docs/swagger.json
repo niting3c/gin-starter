@@ -1,0 +1,171 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Swagger APIS for a starter Application",
+        "title": "Golang Starter Application",
+        "contact": {
+            "name": "Nitin Gupta",
+            "email": "nitin1494gupta@gmail.com"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:4000",
+    "basePath": "/",
+    "paths": {
+        "/health": {
+            "get": {
+                "description": "Checks the health of the service",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Internal"
+                ],
+                "summary": "Health Check",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/log/{level}": {
+            "put": {
+                "description": "Set Log Level",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Internal"
+                ],
+                "summary": "Set Log Level",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Log Level",
+                        "name": "level",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/{email}": {
+            "get": {
+                "description": "Gets the user details by Email",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Gets the user details by Email",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User email",
+                        "name": "email",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UserResponseDto"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorMessage"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.UserResponseDto": {
+            "type": "object",
+            "properties": {
+                "adminRole": {
+                    "type": "boolean"
+                },
+                "canViewLogsRole": {
+                    "type": "boolean"
+                },
+                "testerRole": {
+                    "type": "boolean"
+                },
+                "userDisplayName": {
+                    "type": "string"
+                },
+                "userEmailId": {
+                    "type": "string"
+                },
+                "userFirstName": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
+                },
+                "userLastName": {
+                    "type": "string"
+                },
+                "userRole": {
+                    "type": "string"
+                },
+                "viewerRole": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "utils.ErrorMessage": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                },
+                "statusCode": {
+                    "type": "integer"
+                }
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "OpenAPI"
+    }
+}
